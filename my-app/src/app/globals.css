@@ -24,3 +24,66 @@ body {
   color: #000000;      /* Always black */
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Carousel styles */
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carousel-btn {
+  background: #eee;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-items {
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  flex: 1;
+}
+
+.carousel-item {
+  flex: 1 0 30%;
+  background: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  text-align: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.carousel-image {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-details h3 {
+  font-size: 1rem;
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.carousel-details p {
+  margin: 0;
+  color: #333;
+}
