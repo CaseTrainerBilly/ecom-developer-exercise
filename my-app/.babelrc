@@ -1,0 +1,4 @@
+// filepath: /Users/billyrichardson/Documents/ecom-developer-exercise/my-app/.babelrc
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
