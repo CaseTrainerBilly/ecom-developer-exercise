@@ -14,7 +14,9 @@ const ProductCard = ({ product }) => (
     <img
       src={product.imageSrc}
       alt={product.productTitle}
-      className="carousel-image"
+      className="product-card-image"
+      width={120}
+      height={120}
     />
     <div className="carousel-details">
       <h3>{product.productTitle}</h3>

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 
 /**
@@ -11,6 +11,28 @@ const ITEMS_VISIBLE = 3;
 
 const Carousel = ({ products, title }) => {
   const [startIdx, setStartIdx] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all product images on mount
+  useEffect(() => {
+    let loadedCount = 0;
+    products.forEach(product => {
+      const img = new window.Image();
+      img.src = product.imageSrc;
+      img.onload = () => {
+        loadedCount += 1;
+        if (loadedCount === products.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount += 1;
+        if (loadedCount === products.length) {
+          setImagesLoaded(true);
+        }
+      };
+    });
+  }, [products]);
 
   const canGoLeft = startIdx > 0;
   const canGoRight = startIdx + ITEMS_VISIBLE < products.length;
@@ -24,6 +46,14 @@ const Carousel = ({ products, title }) => {
   };
 
   const visibleProducts = products.slice(startIdx, startIdx + ITEMS_VISIBLE);
+
+  if (!imagesLoaded) {
+    return (
+      <section className="carousel">
+        <div style={{ textAlign: "center", padding: "2rem" }}>Loading...</div>
+      </section>
+    );
+  }
 
   return (
     <section className="carousel">
@@ -39,7 +69,10 @@ const Carousel = ({ products, title }) => {
         </button>
         <div className="carousel-items">
           {visibleProducts.map((product) => (
-            <ProductCard key={product.productUrl} product={product} />
+            <ProductCard
+              key={product.productUrl}
+              product={product}
+            />
           ))}
         </div>
         <button
