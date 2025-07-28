@@ -66,7 +66,7 @@ const Carousel = ({ products, title }) => {
           onClick={handleLeft}
           disabled={!canGoLeft}
         >
-          &#8592;
+          <img src="./left-arrow-svgrepo-com.svg" alt="Previous" width={24} height={24} />
         </button>
         <div className={styles.carouselItems}>
           {visibleProducts.map((product) => (
@@ -79,7 +79,7 @@ const Carousel = ({ products, title }) => {
           onClick={handleRight}
           disabled={!canGoRight}
         >
-          &#8594;
+          <img src="./right-arrow-svgrepo-com.svg" alt="Next" width={24} height={24} />
         </button>
       </div>
     </section>

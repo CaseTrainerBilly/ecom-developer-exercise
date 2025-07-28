@@ -11,7 +11,7 @@
 }
 
 .carouselBtn {
-  background: #eee;
+  background: transparent;
   border: none;
   font-size: 2rem;
   padding: 0.5rem 1rem;
@@ -22,6 +22,13 @@
 .carouselBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.carouselBtn img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(0); /* force black for most SVGs */
+  display: block;
 }
 
 .carouselItems {
