@@ -35,7 +35,9 @@ const ProductCard = ({ product }) => {
           {productName && (
             <div className={styles.productName}>{productName}</div>
           )}
-          <p className={styles.productPrice}>£{product.price}</p>
+          <p className={product.price ? styles.productPrice : styles.productPriceUnavailable}>
+            {product.price ? `£${product.price}` : "Price unavailable"}
+          </p>
         </div>
         <div className={styles.shopNowWrapper}>
           <span className={styles.shopNow}>SHOP NOW</span>

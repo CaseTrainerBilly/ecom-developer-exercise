@@ -8,53 +8,37 @@ import styles from "./Carousel.module.css";
  * @param {Array} products - Array of product objects to display.
  * @param {string} [title] - Optional carousel title.
  */
-const ITEMS_VISIBLE = 3;
-
 const Carousel = ({ products, title }) => {
   const [startIdx, setStartIdx] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [itemsVisible, setItemsVisible] = useState(3);
 
-  // Preload all product images on mount
   useEffect(() => {
-    let loadedCount = 0;
-    products.forEach(product => {
-      const img = new window.Image();
-      img.src = product.imageSrc;
-      img.onload = () => {
-        loadedCount += 1;
-        if (loadedCount === products.length) {
-          setImagesLoaded(true);
-        }
-      };
-      img.onerror = () => {
-        loadedCount += 1;
-        if (loadedCount === products.length) {
-          setImagesLoaded(true);
-        }
-      };
-    });
-  }, [products]);
+    const handleResize = () => {
+      if (window.innerWidth <= 700) {
+        setItemsVisible(1);
+      } else if (window.innerWidth <= 900) {
+        setItemsVisible(2);
+      } else {
+        setItemsVisible(3);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const visibleProducts = products.slice(startIdx, startIdx + itemsVisible);
 
   const canGoLeft = startIdx > 0;
-  const canGoRight = startIdx + ITEMS_VISIBLE < products.length;
+  const canGoRight = startIdx + itemsVisible < products.length;
 
   const handleLeft = () => {
-    if (canGoLeft) setStartIdx(startIdx - ITEMS_VISIBLE);
+    if (canGoLeft) setStartIdx(startIdx - itemsVisible);
   };
 
   const handleRight = () => {
-    if (canGoRight) setStartIdx(startIdx + ITEMS_VISIBLE);
+    if (canGoRight) setStartIdx(startIdx + itemsVisible);
   };
-
-  const visibleProducts = products.slice(startIdx, startIdx + ITEMS_VISIBLE);
-
-  if (!imagesLoaded) {
-    return (
-      <section className={styles.carousel}>
-        <div style={{ textAlign: "center", padding: "2rem" }}>Loading...</div>
-      </section>
-    );
-  }
 
   return (
     <section className={styles.carousel}>
@@ -66,7 +50,7 @@ const Carousel = ({ products, title }) => {
           onClick={handleLeft}
           disabled={!canGoLeft}
         >
-          <img src="./left-arrow-svgrepo-com.svg" alt="Previous" width={24} height={24} />
+          <img src="/left-arrow-svgrepo-com.svg" alt="Previous" width={48} height={48} />
         </button>
         <div className={styles.carouselItems}>
           {visibleProducts.map((product) => (
@@ -79,7 +63,7 @@ const Carousel = ({ products, title }) => {
           onClick={handleRight}
           disabled={!canGoRight}
         >
-          <img src="./right-arrow-svgrepo-com.svg" alt="Next" width={24} height={24} />
+          <img src="/right-arrow-svgrepo-com.svg" alt="Next" width={48} height={48} />
         </button>
       </div>
     </section>

@@ -1,13 +1,14 @@
 .carousel {
   width: 100%;
-  max-width: 1200px;   /* Increased max width */
+  max-width: 1200px;
   margin: 3rem auto;
 }
 
 .carouselControls {
   display: flex;
-  align-items: center;
+  align-items: stretch;   /* was: center */
   gap: 2rem;
+  justify-content: flex-start; /* add this line */
 }
 
 .carouselBtn {
@@ -39,21 +40,31 @@
   flex: 1;
   height: 520px;
   align-items: stretch;
+  justify-content: flex-start;
 }
 
-/* Responsive: stack cards vertically on small screens */
 @media (max-width: 1200px) {
   .carousel {
     max-width: 98vw;
   }
   .carouselItems {
-    height: 400px;
+    height: 340px;
+    gap: 1rem;
   }
 }
+
+@media (max-width: 900px) {
+  .carouselItems {
+    height: 260px;
+    gap: 0.5rem;
+  }
+}
+
 @media (max-width: 700px) {
   .carouselItems {
     flex-direction: column;
     align-items: center;
     height: auto;
+    gap: 1rem;
   }
 }
