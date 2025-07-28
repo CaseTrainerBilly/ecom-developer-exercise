@@ -1,0 +1,49 @@
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.carouselControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carouselBtn {
+  background: #eee;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.carouselBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carouselItems {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  overflow: hidden;
+  flex: 1;
+  height: 400px;
+  align-items: stretch;
+}
+
+/* Responsive: stack cards vertically on small screens */
+@media (max-width: 900px) {
+  .carouselItems {
+    height: 320px;
+  }
+}
+@media (max-width: 700px) {
+  .carouselItems {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+}

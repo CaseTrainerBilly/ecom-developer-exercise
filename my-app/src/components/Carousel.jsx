@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import styles from "./Carousel.module.css";
 
 /**
  * Carousel component for displaying product recommendations.
@@ -49,35 +50,32 @@ const Carousel = ({ products, title }) => {
 
   if (!imagesLoaded) {
     return (
-      <section className="carousel">
+      <section className={styles.carousel}>
         <div style={{ textAlign: "center", padding: "2rem" }}>Loading...</div>
       </section>
     );
   }
 
   return (
-    <section className="carousel">
+    <section className={styles.carousel}>
       {title && <h2>{title}</h2>}
-      <div className="carousel-controls">
+      <div className={styles.carouselControls}>
         <button
           aria-label="Previous"
-          className="carousel-btn"
+          className={styles.carouselBtn}
           onClick={handleLeft}
           disabled={!canGoLeft}
         >
           &#8592;
         </button>
-        <div className="carousel-items">
+        <div className={styles.carouselItems}>
           {visibleProducts.map((product) => (
-            <ProductCard
-              key={product.productUrl}
-              product={product}
-            />
+            <ProductCard key={product.productUrl} product={product} />
           ))}
         </div>
         <button
           aria-label="Next"
-          className="carousel-btn"
+          className={styles.carouselBtn}
           onClick={handleRight}
           disabled={!canGoRight}
         >
