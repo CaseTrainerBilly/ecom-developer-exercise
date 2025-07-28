@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import ProductCard from "./ProductCard";
 
 /**
  * Carousel component for displaying product recommendations.
@@ -38,23 +39,7 @@ const Carousel = ({ products, title }) => {
         </button>
         <div className="carousel-items">
           {visibleProducts.map((product) => (
-            <a
-              key={product.productUrl}
-              href={product.productUrl}
-              className="carousel-item"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src={product.imageSrc}
-                alt={product.productTitle}
-                className="carousel-image"
-              />
-              <div className="carousel-details">
-                <h3>{product.productTitle}</h3>
-                <p>{product.price}</p>
-              </div>
-            </a>
+            <ProductCard key={product.productUrl} product={product} />
           ))}
         </div>
         <button
