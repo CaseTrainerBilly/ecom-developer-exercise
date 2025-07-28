@@ -22,6 +22,7 @@ const Carousel = ({ products, title }) => {
         setItemsVisible(3);
       }
     };
+    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -33,37 +34,51 @@ const Carousel = ({ products, title }) => {
   const canGoRight = startIdx + itemsVisible < products.length;
 
   const handleLeft = () => {
-    if (canGoLeft) setStartIdx(startIdx - itemsVisible);
+    if (canGoLeft) {
+      setStartIdx(Math.max(0, startIdx - itemsVisible));
+    }
   };
 
   const handleRight = () => {
-    if (canGoRight) setStartIdx(startIdx + itemsVisible);
+    if (canGoRight) {
+      setStartIdx(Math.min(products.length - itemsVisible, startIdx + itemsVisible));
+    }
   };
+
+  // Don't render if no products
+  if (!products || products.length === 0) {
+    return null;
+  }
 
   return (
     <section className={styles.carousel}>
       {title && <h2>{title}</h2>}
       <div className={styles.carouselControls}>
         <button
-          aria-label="Previous"
+          aria-label="Previous products"
           className={styles.carouselBtn}
           onClick={handleLeft}
           disabled={!canGoLeft}
         >
-          <img src="/left-arrow-svgrepo-com.svg" alt="Previous" width={48} height={48} />
+          <img src="/left-arrow-svgrepo-com.svg" alt="Previous" />
         </button>
+        
         <div className={styles.carouselItems}>
-          {visibleProducts.map((product) => (
-            <ProductCard key={product.productUrl} product={product} />
+          {visibleProducts.map((product, index) => (
+            <ProductCard 
+              key={`${product.productUrl}-${startIdx + index}`} 
+              product={product} 
+            />
           ))}
         </div>
+        
         <button
-          aria-label="Next"
+          aria-label="Next products"
           className={styles.carouselBtn}
           onClick={handleRight}
           disabled={!canGoRight}
         >
-          <img src="/right-arrow-svgrepo-com.svg" alt="Next" width={48} height={48} />
+          <img src="/right-arrow-svgrepo-com.svg" alt="Next" />
         </button>
       </div>
     </section>
