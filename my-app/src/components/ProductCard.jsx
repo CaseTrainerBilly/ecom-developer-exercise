@@ -2,28 +2,34 @@ import React from "react";
 import styles from "./ProductCard.module.css";
 
 /**
- * ProductCard component for displaying a single product.
+ * ProductCard component styled to match the reference design.
  * @param {Object} product - The product object to display.
  */
 const ProductCard = ({ product }) => (
-  <a
-    href={product.productUrl}
-    className={styles.productCard}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      src={product.imageSrc}
-      alt={product.productTitle}
-      className={styles.productCardImage}
-      width={120}
-      height={120}
-    />
-    <div className={styles.productCardDetails}>
-      <h3>{product.productTitle}</h3>
-      <p>{product.price}</p>
-    </div>
-  </a>
+  <div className={styles.productCard}>
+    <a
+      href={product.productUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.productCardLink}
+    >
+      <img
+        src={product.imageSrc}
+        alt={product.productTitle}
+        className={styles.productCardImage}
+      />
+      <div className={styles.productCardDetails}>
+        {product.brand && (
+          <div className={styles.productBrand}>{product.brand}</div>
+        )}
+        <h3 className={styles.productTitle}>{product.productTitle}</h3>
+        <p className={styles.productPrice}>£{product.price}</p>
+      </div>
+      <div className={styles.shopNowWrapper}>
+        <span className={styles.shopNow}>SHOP NOW</span>
+      </div>
+    </a>
+  </div>
 );
 
 export default ProductCard;
