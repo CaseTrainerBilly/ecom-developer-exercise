@@ -1,13 +1,13 @@
 .carousel {
   width: 100%;
-  max-width: 900px;
-  margin: 2rem auto;
+  max-width: 1200px;   /* Increased max width */
+  margin: 3rem auto;
 }
 
 .carouselControls {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .carouselBtn {
@@ -25,8 +25,8 @@
 }
 
 .carouselBtn img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   filter: brightness(0) invert(0); /* force black for most SVGs */
   display: block;
 }
@@ -34,17 +34,20 @@
 .carouselItems {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 2rem;
   overflow: hidden;
   flex: 1;
-  height: 400px;
+  height: 520px;
   align-items: stretch;
 }
 
 /* Responsive: stack cards vertically on small screens */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .carousel {
+    max-width: 98vw;
+  }
   .carouselItems {
-    height: 320px;
+    height: 400px;
   }
 }
 @media (max-width: 700px) {
