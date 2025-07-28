@@ -62,6 +62,12 @@
   align-items: stretch;
   justify-content: flex-start;
   min-height: 480px;
+  /* Add touch-friendly properties */
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Tablet styles */
@@ -127,6 +133,13 @@
     align-items: center;
     min-height: auto;
     gap: 0.5rem;
+    /* Enhanced touch experience for mobile */
+    touch-action: pan-y;
+    cursor: grab;
+  }
+  
+  .carouselItems:active {
+    cursor: grabbing;
   }
   
   .carouselBtn {

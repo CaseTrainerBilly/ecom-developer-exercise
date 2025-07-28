@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./Carousel.module.css";
 
@@ -11,6 +11,9 @@ import styles from "./Carousel.module.css";
 const Carousel = ({ products, title }) => {
   const [startIdx, setStartIdx] = useState(0);
   const [itemsVisible, setItemsVisible] = useState(3);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const minSwipeDistance = 50; // Minimum distance for a swipe
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,6 +48,34 @@ const Carousel = ({ products, title }) => {
     }
   };
 
+  // Touch event handlers for swipe functionality
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && canGoRight) {
+      handleRight();
+    }
+    if (isRightSwipe && canGoLeft) {
+      handleLeft();
+    }
+
+    // Reset touch positions
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   // Don't render if no products
   if (!products || products.length === 0) {
     return null;
@@ -63,7 +94,12 @@ const Carousel = ({ products, title }) => {
           <img src="/left-arrow-svgrepo-com.svg" alt="Previous" />
         </button>
         
-        <div className={styles.carouselItems}>
+        <div 
+          className={styles.carouselItems}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {visibleProducts.map((product, index) => (
             <ProductCard 
               key={`${product.productUrl}-${startIdx + index}`} 
