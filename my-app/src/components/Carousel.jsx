@@ -39,11 +39,11 @@ const Carousel = ({ products, title }) => {
   const canGoRight = startIdx + ITEMS_VISIBLE < products.length;
 
   const handleLeft = () => {
-    if (canGoLeft) setStartIdx(startIdx - 1);
+    if (canGoLeft) setStartIdx(startIdx - ITEMS_VISIBLE);
   };
 
   const handleRight = () => {
-    if (canGoRight) setStartIdx(startIdx + 1);
+    if (canGoRight) setStartIdx(startIdx + ITEMS_VISIBLE);
   };
 
   const visibleProducts = products.slice(startIdx, startIdx + ITEMS_VISIBLE);

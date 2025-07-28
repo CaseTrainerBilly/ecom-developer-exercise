@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ProductCard.module.css";
 
 /**
@@ -6,12 +6,13 @@ import styles from "./ProductCard.module.css";
  * @param {Object} product - The product object to display.
  */
 const ProductCard = ({ product }) => {
-  // Split on the first " - "
   const [brand, ...rest] = product.productTitle.split(" - ");
   const productName = rest.length > 0 ? rest.join(" - ") : "";
 
-  // Check if brand is a single word
-  const isSingleWordBrand = brand.trim().split(/\s+/).length === 1;
+  const placeholder = "/No-Image-Placeholder.svg.png";
+  const [imgSrc, setImgSrc] = useState(
+    product.imageSrc && product.imageSrc.trim() ? product.imageSrc : placeholder
+  );
 
   return (
     <div className={styles.productCard}>
@@ -22,9 +23,10 @@ const ProductCard = ({ product }) => {
         className={styles.productCardLink}
       >
         <img
-          src={product.imageSrc}
+          src={imgSrc}
           alt={product.productTitle}
           className={styles.productCardImage}
+          onError={() => setImgSrc(placeholder)}
         />
         <div className={styles.productCardDetails}>
           <div className={styles.productBrand}>
