@@ -7,7 +7,10 @@ import styles from "./ProductCard.module.css";
  */
 const ProductCard = ({ product }) => {
   const [brand, ...rest] = product.productTitle.split(" - ");
-  const productName = rest.length > 0 ? rest.join(" - ") : "";
+  
+  // If no brand is found (no " - " separator), use "Unbranded"
+  const displayBrand = rest.length > 0 ? brand : "Unbranded";
+  const productName = rest.length > 0 ? rest.join(" - ") : product.productTitle;
 
   const placeholder = "/No-Image-Placeholder.svg.png";
   const [imgSrc, setImgSrc] = useState(
@@ -30,17 +33,22 @@ const ProductCard = ({ product }) => {
         />
         <div className={styles.productCardDetails}>
           <div className={styles.productBrand}>
-            {brand || product.productTitle}
+            {displayBrand}
           </div>
-          {productName && (
-            <div className={styles.productName}>{productName}</div>
-          )}
+          <div className={styles.productName}>{productName}</div>
           <p className={product.price ? styles.productPrice : styles.productPriceUnavailable}>
             {product.price ? `£${product.price}` : "Price unavailable"}
           </p>
         </div>
         <div className={styles.shopNowWrapper}>
-          <span className={styles.shopNow}>SHOP NOW</span>
+          <span className={styles.shopNow}>
+            <img 
+              src="/cart-3-svgrepo-com.svg" 
+              alt="Cart" 
+              className={styles.cartIcon}
+            />
+            SHOP NOW
+          </span>
         </div>
       </a>
     </div>

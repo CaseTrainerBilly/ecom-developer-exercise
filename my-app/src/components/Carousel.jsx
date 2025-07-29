@@ -11,19 +11,21 @@ import styles from "./Carousel.module.css";
 const Carousel = ({ products, title }) => {
   const [startIdx, setStartIdx] = useState(0);
   const [itemsVisible, setItemsVisible] = useState(3);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [slideDirection, setSlideDirection] = useState('');
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  const minSwipeDistance = 50; // Minimum distance for a swipe
+  const minSwipeDistance = 50;
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 700) {
-        setItemsVisible(1);
-      } else if (window.innerWidth <= 900) {
-        setItemsVisible(2);
-      } else {
-        setItemsVisible(3);
-      }
+      const newItemsVisible = window.innerWidth <= 700 ? 1 : 
+                             window.innerWidth <= 900 ? 2 : 3;
+      
+      setItemsVisible(newItemsVisible);
+      
+      // Reset startIdx to 0 when itemsVisible changes to avoid invalid states
+      setStartIdx(0);
     };
     
     handleResize();
@@ -31,24 +33,70 @@ const Carousel = ({ products, title }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const visibleProducts = products.slice(startIdx, startIdx + itemsVisible);
+  // Calculate total pages (including partial pages)
+  const totalPages = Math.ceil(products.length / itemsVisible);
+  
+  // Calculate current page with special handling for the last page
+  const maxStartIdx = Math.max(0, products.length - itemsVisible);
+  let currentPage = Math.floor(startIdx / itemsVisible);
+  
+  // If we're at the maximum start index (showing the last products), 
+  // we're on the last page regardless of calculation
+  if (startIdx >= maxStartIdx && maxStartIdx > 0) {
+    currentPage = totalPages - 1;
+  }
 
+  // Show current products
+  const currentProducts = products.slice(startIdx, startIdx + itemsVisible);
+  
   const canGoLeft = startIdx > 0;
   const canGoRight = startIdx + itemsVisible < products.length;
 
+  const handleTransition = (newIndex, direction) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setSlideDirection(direction);
+    
+    setTimeout(() => {
+      setStartIdx(newIndex);
+    }, 50);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setSlideDirection('');
+    }, 350);
+  };
+
   const handleLeft = () => {
-    if (canGoLeft) {
-      setStartIdx(Math.max(0, startIdx - itemsVisible));
+    if (canGoLeft && !isTransitioning) {
+      const newIndex = Math.max(0, startIdx - itemsVisible);
+      handleTransition(newIndex, 'left');
     }
   };
 
   const handleRight = () => {
-    if (canGoRight) {
-      setStartIdx(Math.min(products.length - itemsVisible, startIdx + itemsVisible));
+    if (canGoRight && !isTransitioning) {
+      const newIndex = Math.min(products.length - itemsVisible, startIdx + itemsVisible);
+      handleTransition(newIndex, 'right');
     }
   };
 
-  // Touch event handlers for swipe functionality
+  const handleDotClick = (pageIndex) => {
+    if (isTransitioning) return;
+    
+    // Calculate the start index for the clicked page
+    let newIndex = pageIndex * itemsVisible;
+    
+    // For the last page, ensure we show the last products
+    if (pageIndex === totalPages - 1) {
+      newIndex = Math.max(0, products.length - itemsVisible);
+    }
+    
+    const direction = newIndex > startIdx ? 'right' : 'left';
+    handleTransition(newIndex, direction);
+  };
+
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -58,7 +106,7 @@ const Carousel = ({ products, title }) => {
   };
 
   const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
+    if (!touchStartX.current || !touchEndX.current || isTransitioning) return;
     
     const distance = touchStartX.current - touchEndX.current;
     const isLeftSwipe = distance > minSwipeDistance;
@@ -71,12 +119,10 @@ const Carousel = ({ products, title }) => {
       handleLeft();
     }
 
-    // Reset touch positions
     touchStartX.current = 0;
     touchEndX.current = 0;
   };
 
-  // Don't render if no products
   if (!products || products.length === 0) {
     return null;
   }
@@ -89,34 +135,51 @@ const Carousel = ({ products, title }) => {
           aria-label="Previous products"
           className={styles.carouselBtn}
           onClick={handleLeft}
-          disabled={!canGoLeft}
+          disabled={!canGoLeft || isTransitioning}
         >
           <img src="/left-arrow-svgrepo-com.svg" alt="Previous" />
         </button>
         
-        <div 
-          className={styles.carouselItems}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {visibleProducts.map((product, index) => (
-            <ProductCard 
-              key={`${product.productUrl}-${startIdx + index}`} 
-              product={product} 
-            />
-          ))}
+        <div className={styles.carouselWrapper}>
+          <div 
+            className={`${styles.carouselItems} ${isTransitioning ? styles.transitioning : ''} ${slideDirection ? styles[slideDirection] : ''}`}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {currentProducts.map((product, index) => (
+              <ProductCard 
+                key={`${product.productUrl}-${startIdx + index}`} 
+                product={product} 
+              />
+            ))}
+          </div>
         </div>
         
         <button
           aria-label="Next products"
           className={styles.carouselBtn}
           onClick={handleRight}
-          disabled={!canGoRight}
+          disabled={!canGoRight || isTransitioning}
         >
           <img src="/right-arrow-svgrepo-com.svg" alt="Next" />
         </button>
       </div>
+      
+      {/* Dot Indicators */}
+      {totalPages > 1 && (
+        <div className={styles.carouselIndicators}>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`${styles.indicator} ${index === currentPage ? styles.active : ''}`}
+              onClick={() => handleDotClick(index)}
+              aria-label={`Go to page ${index + 1} of ${totalPages}`}
+              disabled={isTransitioning}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
