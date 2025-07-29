@@ -14,19 +14,19 @@ Amend this Readme in your forked repo and use your commits to outline the compon
 
 # Responsive Product Carousel (Next.js + React)
 
-This project features a responsive product carousel built with **React** and **Next.js**, designed to enhance the ecommerce browsing experience across all devices with modern UX patterns and accessibility in mind.
+This project features a responsive product carousel built with React and Next.js, designed to enhance the ecommerce browsing experience across all devices with modern UX patterns and accessibility in mind.
 
 ## Live Demo
 
-**View the carousel in action:** [https://casetrainerbilly.github.io/ecom-developer-exercise/]
+View the carousel in action: [https://casetrainerbilly.github.io/ecom-developer-exercise/](https://casetrainerbilly.github.io/ecom-developer-exercise/)
 
 ---
 
 ## Research-Informed Design
 
-- **Built with Mobile in Mind:** With over **75% of ecommerce purchases** occurring on mobile or tablets, the carousel includes touch gestures, responsive layout adjustments, and vertical transitions for smaller screens to provide an optimal experience.
-- **Effective CTA Placement:** Each product card includes a prominent **"Shop Now"** button. Based on ecommerce research, strong call-to-action buttons drive higher engagement and conversions.
-- **Graceful Degradation:** Missing images or prices are handled with fallbacks to ensure visual consistency and maintain user trust.
+- Built with Mobile in Mind: With over 75% of ecommerce purchases occurring on mobile or tablets, the carousel includes touch gestures, responsive layout adjustments, and vertical transitions for smaller screens to provide an optimal experience.
+- Effective CTA Placement: Each product card includes a prominent "Shop Now" button. Based on ecommerce research, strong call-to-action buttons drive higher engagement and conversions.
+- Graceful Degradation: Missing images or prices are handled with fallbacks to ensure visual consistency and maintain user trust.
 
 ---
 
@@ -35,7 +35,6 @@ This project features a responsive product carousel built with **React** and **N
 ### Carousel (`/components/Carousel.jsx`)
 - Responsive layout: shows 1–3 items depending on screen size
 - Touch swipe navigation for mobile and tablet users
-- Accessible keyboard navigation with ARIA labels
 - Smooth CSS transitions and edge case handling
 
 ### ProductCard (`/components/ProductCard.jsx`)
@@ -48,11 +47,11 @@ This project features a responsive product carousel built with **React** and **N
 
 ## Tech Stack
 
-- **Next.js (App Router)**
-- **React**
-- **Modular CSS** for component styling
-- **Vitest** + **React Testing Library**
-- **GitHub Pages Ready** (includes `.nojekyll` and `basePath` support)
+- Next.js (App Router)
+- React
+- Modular CSS for component styling
+- Vitest + React Testing Library
+- GitHub Pages Ready (includes .nojekyll and basePath support)
 
 ---
 
@@ -66,7 +65,7 @@ This project features a responsive product carousel built with **React** and **N
 ### Setup Instructions
 
 ```bash
-git clone [your-repo-url]
+git clone [https://github.com/CaseTrainerBilly/ecom-developer-exercise.git]
 cd ecom-developer-exercise/my-app
 npm install
 npm run dev
@@ -91,38 +90,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the carousel in your
 - `isTransitioning`: Prevents rapid navigation during animations
 
 ### Performance Features
-- **Efficient Re-renders:** Only updates when necessary
-- **Smooth Animations:** Hardware-accelerated CSS transitions
-- **Touch Optimization:** `touch-action` properties for better mobile performance
+- Efficient Re-renders: Only updates when necessary
+- Smooth Animations: Hardware-accelerated CSS transitions
+- Touch Optimization: touch-action properties for better mobile performance
 
 ### Browser Support
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- Modern browsers
+- Mobile browsers (Chrome Mobile)
 - CSS Grid and Flexbox support required
 
-## File Structure
-
-```
-my-app/
-├── src/
-│   ├── components/
-│   │   ├── Carousel.jsx
-│   │   ├── Carousel.module.css
-│   │   ├── ProductCard.jsx
-│   │   └── ProductCard.module.css
-│   ├── app/
-│   │   ├── page.js
-│   │   └── globals.css
-│   └── data/
-│       └── recommendations.json
-└── public/
-    ├── cart-3-svgrepo-com.svg
-    ├── left-arrow-svgrepo-com.svg
-    ├── right-arrow-svgrepo-com.svg
-    └── No-Image-Placeholder.svg.png
-```
-
-## Deployment
 
 ### Build for Production
 ```bash
@@ -136,8 +112,7 @@ npm run deploy
 
 ## Future Enhancements
 
-- **Auto-play functionality** with pause on hover
-- **Lazy loading** for improved performance
-- **Wishlist integration** with heart icons
-- **Quick view modals** for product details
-- **Accessibility improvements** with ARIA attributes and keyboard navigation
+- Auto-play functionality with pause on hover
+- Wishlist integration with heart icons
+- Quick view modals for product details
+- Accessibility improvements with ARIA attributes and keyboard navigation
