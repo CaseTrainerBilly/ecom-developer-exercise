@@ -127,17 +127,20 @@ const Carousel = ({ products, title }) => {
     return null;
   }
 
+  // Add basePath for production
+  const basePath = process.env.NODE_ENV === 'production' ? '/ecom-developer-exercise' : '';
+
   return (
     <section className={styles.carousel}>
       {title && <h2>{title}</h2>}
       <div className={styles.carouselControls}>
         <button
+          onClick={() => handleTransition(Math.max(0, startIdx - itemsVisible), 'left')}
+          disabled={!canGoLeft}
           aria-label="Previous products"
           className={styles.carouselBtn}
-          onClick={handleLeft}
-          disabled={!canGoLeft || isTransitioning}
         >
-          <img src="/left-arrow-svgrepo-com.svg" alt="Previous" />
+          <img src={`${basePath}/left-arrow-svgrepo-com.svg`} alt="Previous" />
         </button>
         
         <div className={styles.carouselWrapper}>
@@ -157,12 +160,12 @@ const Carousel = ({ products, title }) => {
         </div>
         
         <button
+          onClick={() => handleTransition(Math.min(maxStartIdx, startIdx + itemsVisible), 'right')}
+          disabled={!canGoRight}
           aria-label="Next products"
           className={styles.carouselBtn}
-          onClick={handleRight}
-          disabled={!canGoRight || isTransitioning}
         >
-          <img src="/right-arrow-svgrepo-com.svg" alt="Next" />
+          <img src={`${basePath}/right-arrow-svgrepo-com.svg`} alt="Next" />
         </button>
       </div>
       
