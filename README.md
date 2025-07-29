@@ -16,6 +16,10 @@ Amend this Readme in your forked repo and use your commits to outline the compon
 
 This project features a responsive product carousel built with **React** and **Next.js**, designed to enhance the ecommerce browsing experience across all devices with modern UX patterns and accessibility in mind.
 
+## Live Demo
+
+**View the carousel in action:** [https://casetrainerbilly.github.io/ecom-developer-exercise/]
+
 ---
 
 ## Research-Informed Design
