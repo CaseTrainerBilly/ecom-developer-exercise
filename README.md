@@ -75,12 +75,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the carousel in your
 
 ## Responsive Breakpoints
 
-| Device | Screen Width | Products Shown | Transition |
-|--------|-------------|----------------|------------|
-| Desktop | >900px | 3 per slide | Horizontal |
-| Tablet | 700-900px | 2 per slide | Horizontal |
-| Mobile | <700px | 1 per slide | Vertical |
-| Small Mobile | <360px | 1 per slide | Optimized spacing |
+Desktop (>900px): Shows 3 products per slide with horizontal transitions
+Tablet (700-900px): Shows 2 products per slide with horizontal transitions  
+Mobile (<700px): Shows 1 product per slide with vertical transitions
+Small Mobile (<360px): Shows 1 product per slide with
 
 ## Technical Implementation
 
