@@ -10,93 +10,67 @@ Please fork this repository and commit your changes for review.
 
 Amend this Readme in your forked repo and use your commits to outline the component you have created and the decisions that you have made, including any information required for how to run your component. When complete please raise a Pull Request back into master branch for review.
 
-## 🎯 Enhanced Carousel Component Solution
+---
 
-This repository contains a fully responsive, accessible product recommendations carousel built with React and Next.js. The solution provides an intuitive shopping experience across all device sizes with smooth animations and modern UX patterns.
+# Responsive Product Carousel (Next.js + React)
 
-## 🛠️ Components Built
+This project features a responsive product carousel built with **React** and **Next.js**, designed to enhance the ecommerce browsing experience across all devices with modern UX patterns and accessibility in mind.
 
-### 📦 **Carousel Component** (`/components/Carousel.jsx`)
-A flexible, responsive carousel that adapts to different screen sizes:
+---
 
-**Desktop (>900px):** Shows 3 products per slide
-**Tablet (700-900px):** Shows 2 products per slide  
-**Mobile (<700px):** Shows 1 product per slide with vertical slide transitions
+## Research-Informed Design
 
-**Key Features:**
-- **Smart Pagination:** Dot indicators show actual slide positions (no extra dots for partial pages)
-- **Touch Swipe Support:** Native mobile gestures with 50px minimum swipe distance
-- **Keyboard Accessible:** Arrow navigation with proper ARIA labels
-- **Responsive Arrows:** Auto-sizing navigation buttons with hover effects
-- **Smooth Transitions:** CSS-based animations with cubic-bezier easing
-- **Edge Case Handling:** Proper behavior when reaching first/last slides
+- **Built with Mobile in Mind:** With over **75% of ecommerce purchases** occurring on mobile or tablets, the carousel includes touch gestures, responsive layout adjustments, and vertical transitions for smaller screens to provide an optimal experience.
+- **Effective CTA Placement:** Each product card includes a prominent **"Shop Now"** button. Based on ecommerce research, strong call-to-action buttons drive higher engagement and conversions.
+- **Graceful Degradation:** Missing images or prices are handled with fallbacks to ensure visual consistency and maintain user trust.
 
-### 🃏 **ProductCard Component** (`/components/ProductCard.jsx`)
-Clean, consistent product display cards with smart content handling:
+---
 
-**Features:**
-- **Brand Extraction:** Automatically splits product titles on " - " separator
-- **Fallback Handling:** Shows "Unbranded" when no brand detected
-- **Image Error Handling:** Graceful fallback to placeholder image
-- **Price Display:** Shows "Price unavailable" for missing prices
-- **Single-line Descriptions:** Text truncation with ellipsis for long product names
-- **Shop Now CTA:** Prominent call-to-action with cart icon
+## Components Overview
 
-## 🎨 Design Decisions
+### Carousel (`/components/Carousel.jsx`)
+- Responsive layout: shows 1–3 items depending on screen size
+- Touch swipe navigation for mobile and tablet users
+- Accessible keyboard navigation with ARIA labels
+- Smooth CSS transitions and edge case handling
 
-### **Responsive Strategy**
-- **Mobile-First Approach:** Optimized for small screens, enhanced for larger ones
-- **Flexible Grid:** Uses CSS Grid and Flexbox for reliable cross-browser layout
-- **Adaptive Sizing:** Typography and spacing scale appropriately across breakpoints
+### ProductCard (`/components/ProductCard.jsx`)
+- Displays product image, title, and price
+- Includes "Shop Now" CTA
+- Fallback placeholder image on load error
+- Handles missing price or brand gracefully
 
-### **User Experience**
-- **Visual Feedback:** Hover states, loading transitions, and disabled button states
-- **Intuitive Navigation:** Familiar carousel patterns with clear visual indicators
-- **Performance Optimized:** Efficient re-renders and smooth 60fps animations
+---
 
-### **Accessibility**
-- **Screen Reader Support:** Proper ARIA labels and semantic HTML structure
-- **Keyboard Navigation:** Full functionality without mouse/touch
-- **Focus Management:** Clear focus indicators and logical tab order
+## Tech Stack
 
-### **Code Architecture**
-- **Modular CSS:** Separate `.module.css` files for component isolation
-- **React Hooks:** `useState` and `useEffect` for state management and side effects
-- **Responsive Logic:** Dynamic breakpoint handling with window resize listeners
+- **Next.js (App Router)**
+- **React**
+- **Modular CSS** for component styling
+- **Vitest** + **React Testing Library**
+- **GitHub Pages Ready** (includes `.nojekyll` and `basePath` support)
 
-## 🚀 How to Run
+---
+
+## Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
+
+- Node.js v14 or higher
 - npm or yarn
 
-### Installation & Setup
+### Setup Instructions
 
-1. **Clone the repository:**
-   ```bash
-   git clone [your-repo-url]
-   cd ecom-developer-exercise
-   ```
+```bash
+git clone [your-repo-url]
+cd ecom-developer-exercise/my-app
+npm install
+npm run dev
+```
 
-2. **Navigate to the app directory:**
-   ```bash
-   cd my-app
-   ```
+Open [http://localhost:3000](http://localhost:3000) to view the carousel in your browser.
 
-3. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-5. **View in browser:**
-   Open [http://localhost:3000](http://localhost:3000)
-
-## 📱 Responsive Breakpoints
+## Responsive Breakpoints
 
 | Device | Screen Width | Products Shown | Transition |
 |--------|-------------|----------------|------------|
@@ -105,24 +79,24 @@ Clean, consistent product display cards with smart content handling:
 | Mobile | <700px | 1 per slide | Vertical |
 | Small Mobile | <360px | 1 per slide | Optimized spacing |
 
-## 🔧 Technical Implementation
+## Technical Implementation
 
-### **State Management**
+### State Management
 - `startIdx`: Current slide position
 - `itemsVisible`: Dynamic based on screen size
 - `isTransitioning`: Prevents rapid navigation during animations
 
-### **Performance Features**
+### Performance Features
 - **Efficient Re-renders:** Only updates when necessary
 - **Smooth Animations:** Hardware-accelerated CSS transitions
 - **Touch Optimization:** `touch-action` properties for better mobile performance
 
-### **Browser Support**
+### Browser Support
 - Modern browsers (Chrome, Firefox, Safari, Edge)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 - CSS Grid and Flexbox support required
 
-## 📂 File Structure
+## File Structure
 
 ```
 my-app/
@@ -144,10 +118,22 @@ my-app/
     └── No-Image-Placeholder.svg.png
 ```
 
-## ✨ Future Enhancements
+## Deployment
+
+### Build for Production
+```bash
+npm run export
+```
+
+### Deploy to GitHub Pages
+```bash
+npm run deploy
+```
+
+## Future Enhancements
 
 - **Auto-play functionality** with pause on hover
 - **Lazy loading** for improved performance
 - **Wishlist integration** with heart icons
 - **Quick view modals** for product details
-- **Accessibility improvements** with focus trapping
+- **Accessibility improvements** with ARIA attributes and keyboard navigation
